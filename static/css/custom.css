@@ -1,0 +1,25 @@
+/* static/admin/css/custom.css */
+
+/*th.column-get_warning_time {*/
+/*    background: red;*/
+/*}*/
+
+/*th.field-get_warning_time {*/
+/*    width: 30%;*/
+/*    color: green;*/
+/*}*/
+
+.mobile_access_image {
+    width: 64px;
+    height: 64px;
+}
+
+.userinfo-avatar {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: contain;
+    background-color: #f9f9f9;
+}

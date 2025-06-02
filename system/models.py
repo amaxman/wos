@@ -26,7 +26,13 @@ class DictData(BasicModel):
     dict_label = models.CharField(verbose_name='字典标签', max_length=100)
     dict_value = models.CharField(verbose_name='字典键值', max_length=100)
     dict_order_num = models.IntegerField(verbose_name='序号', null=True, blank=True, default=0)
-    dict_type = models.ForeignKey(to=DictType, on_delete=models.CASCADE, related_name='items', verbose_name="字典名称")
+    dict_type = models.ForeignKey(
+        to=DictType,
+        on_delete=models.CASCADE,
+        related_name='items',
+        parent_link=True,
+        verbose_name="字典名称"
+    )
     is_sys = models.CharField(verbose_name='是否系统字典', max_length=1, default='0')
     status = models.CharField(verbose_name='状态', max_length=1, default='0')
 
@@ -51,19 +57,19 @@ class MobileAccess(BasicModel):
 
     def delete(self, *args, **kwargs):
         # 删除文件前先检查是否存在
-        if self.avatar:
-            if os.path.isfile(self.avatar.path):
-                os.remove(self.avatar.path)
+        if self.access_icon:
+            if os.path.isfile(self.access_icon.path):
+                os.remove(self.access_icon.path)
         # 调用父类的 delete 方法删除数据库记录
         super().delete(*args, **kwargs)
 
     # 批量删除实例并清理文件
     def bulk_delete_with_file_cleanup(queryset):
         for instance in queryset:
-            if instance.avatar:
+            if instance.access_icon:
                 # 删除文件
-                if default_storage.exists(instance.avatar.name):
-                    default_storage.delete(instance.avatar.name)
+                if default_storage.exists(instance.access_icon.name):
+                    default_storage.delete(instance.access_icon.name)
 
         # 执行批量删除
         queryset.delete()
@@ -72,3 +78,4 @@ class MobileAccess(BasicModel):
         verbose_name = '移动端入口'
         verbose_name_plural = '移动端入口'
         db_table = 'sys_mobile_access'
+        ordering = ['access_order_num', 'access_code']

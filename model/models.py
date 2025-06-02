@@ -8,6 +8,7 @@ import json
 import re
 from django.db.models import Model
 from django.utils import timezone
+from django.contrib import admin
 
 
 class BasicModel(models.Model):
@@ -16,6 +17,13 @@ class BasicModel(models.Model):
 
     class Meta:
         abstract = True,
+
+
+class BasicModelAdmin(admin.ModelAdmin):
+    class Media:
+        css = {
+            'all': ('css/custom.css',)
+        }
 
 
 def to_camel_case(snake_str: str):
@@ -74,7 +82,7 @@ def post_image_path(instance, filename):
     # 使用当前日期和随机字符串作为文件名
     filename = f'{timezone.now().strftime("%Y%m%d")}_{uuid.uuid4().hex[:8]}.{ext}'
     # 文件会被上传到 MEDIA_ROOT/static/face/<year>/<month>/<filename> 目录
-    return os.path.join('static', 'face',
+    return os.path.join('static', 'upload',
                         str(timezone.now().year),
                         str(timezone.now().month),
                         filename)
