@@ -4,6 +4,7 @@ from django.utils import timezone
 
 from model.models import BasicModel, post_image_path
 from django import forms
+from datetime import timedelta
 
 
 class WorkOrder(BasicModel):
@@ -35,6 +36,7 @@ class WorkOrderStaff(BasicModel):
         verbose_name='工单',
         related_name='items',
         parent_link=True,
+        limit_choices_to={'start_date__gte': timezone.now() - timedelta(days=3)}
     )
     staff_id = models.ForeignKey(to=User, verbose_name='执行人', on_delete=models.SET_NULL, null=True,
                                  related_name='work_order_staff_staff_id', blank=True)
