@@ -9,11 +9,17 @@ import re
 from django.db.models import Model
 from django.utils import timezone
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 
 
 class BasicModel(models.Model):
-    sys_id = models.CharField(verbose_name="系统标识", max_length=64, default='', null=True, blank=True)
-    remarks = models.TextField(verbose_name="备注", default='', null=True, blank=True)
+    sys_id = models.CharField(verbose_name=_('sys id'), max_length=64, default='', null=True, blank=True)
+    remarks = models.TextField(verbose_name=_('remark'), default='', null=True, blank=True)
+
+    def get_translated_label(self):
+        # 这里可以根据当前语言返回不同的标签
+        # 示例：实际应用中需要根据具体需求实现
+        return _(self.dict_label)
 
     class Meta:
         abstract = True,

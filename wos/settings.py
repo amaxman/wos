@@ -11,11 +11,12 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATABASES_DIR = BASE_DIR.parent / 'databases'
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -28,7 +29,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'system',
-    'work_order'
+    'work_order',
+    'utils'
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'utils.middleware.AdminLocaleMiddleware',  # 添加自定义中间件
 ]
 
 ROOT_URLCONF = 'wos.urls'
@@ -73,7 +75,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'wos.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -83,7 +84,6 @@ DATABASES = {
         'NAME': DATABASES_DIR / 'wos.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -103,20 +103,34 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
+# region 多语言
 # LANGUAGE_CODE = 'en-us'
 LANGUAGE_CODE = 'zh-hans'
+USE_I18N = True
+USE_L10N = True
 
+LANGUAGES = [
+    ('en-us', _('English')),
+    ('zh-hans', _('Simplified Chinese')),  # BCP 47 格式
+]
+
+# 设置locale目录路径
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',  # 假设locale目录在项目根目录下
+]
+
+
+# endregion
+
+# region 时间
 # TIME_ZONE = 'UTC'
 TIME_ZONE = 'Asia/Shanghai'
 
-USE_I18N = True
-
 USE_TZ = True
-
+# endregion
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -125,7 +139,7 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
-    ]
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

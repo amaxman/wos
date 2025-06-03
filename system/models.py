@@ -4,20 +4,21 @@ from django.db import models
 
 from model.models import BasicModel, post_image_path
 from django.core.files.storage import default_storage
+from django.utils.translation import gettext_lazy as _
 
 
 class DictType(BasicModel):
-    dict_name = models.CharField(verbose_name='字典名称', max_length=100)
-    dict_type = models.CharField(verbose_name='字典类型', max_length=50)
-    is_sys = models.CharField(verbose_name='是否系统字典', max_length=1, default='0')
-    status = models.CharField(verbose_name='状态', max_length=1, default='0')
+    dict_name = models.CharField(verbose_name=_('Dict Type Name'), max_length=100)
+    dict_type = models.CharField(verbose_name=_('Dict Type Cate'), max_length=50)
+    is_sys = models.CharField(verbose_name=_('Is System'), max_length=1, default='0')
+    status = models.CharField(verbose_name=_('Status'), max_length=1, default='0')
 
     def __str__(self):
         return self.dict_name
 
     class Meta:
-        verbose_name = '字典类型'
-        verbose_name_plural = '字典类型管理'
+        verbose_name = _('字典类型')
+        verbose_name_plural = _('字典类型管理')
         db_table = 'sys_dict_type'
         ordering = ['dict_type']
 

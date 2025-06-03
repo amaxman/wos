@@ -1,12 +1,22 @@
-{% extends "admin/base.html" %}
+{% extends "admin/base_site.html" %}
+{% load i18n %}
 
-{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}工单系统{% endblock %}
-
-{% block branding %}
-<div id="site-name"><a href="{% url 'admin:index' %}">工单系统</a></div>
-{% if user.is_anonymous %}
-  {% include "admin/color_theme_toggle.html" %}
-{% endif %}
+{% block usertools %}
+    <div style="float: right; margin: 10px;">
+        <form action="{% url 'set_language' %}" method="post">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ request.path }}">
+            <select name="language" onchange="this.form.submit()">
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as languages %}
+                {% for language in languages %}
+                    <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}selected{% endif %}>
+                        {{ language.name_local }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+    {{ block.super }}
 {% endblock %}
-
-{% block nav-global %}{% endblock %}
