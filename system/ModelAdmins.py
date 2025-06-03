@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.utils.html import format_html
+from django.utils.translation import gettext_lazy as _
 
 
 class DictTypeAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('基础信息', {
+        (_('Basic Info'), {
             'fields': [
                 'dict_name',
                 'dict_type',
@@ -25,12 +26,12 @@ class DictTypeAdmin(admin.ModelAdmin):
 
 class DictDataAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('字典类型', {
+        (_('Dict Type'), {
             'fields': [
                 'dict_type',
             ],
         }),
-        ('明细', {
+        (_('Detail'), {
             'fields': [
                 'dict_label',
                 'dict_value',
@@ -54,14 +55,14 @@ class DictDataAdmin(admin.ModelAdmin):
 
 class MobileAccessAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('基础信息', {
+        (_('Basic Info'), {
             'fields': [
                 'access_title',
                 'access_code',
                 'access_order_num',
             ],
         }),
-        ('图标', {
+        (_('ICON'), {
             'fields': [
                 'access_icon',
                 'image_preview'
@@ -84,13 +85,14 @@ class MobileAccessAdmin(admin.ModelAdmin):
     def image_display(self, obj):
         if obj.access_icon:
             return format_html(
-                '<a href="/{}" target="_blank" title="点击查看原图"><img src="/{}" class="mobile_access_image" /></a>',
+                '<a href="/{}" target="_blank" title="{}"><img src="/{}" class="mobile_access_image" /></a>',
                 obj.access_icon,
+                _('Click to View Image'),
                 obj.access_icon
             )
-        return "无图片"
+        return _('No Image')
 
-    image_display.short_description = '图片'  # 设置列标题
+    image_display.short_description = _('ICON')  # 设置列标题
     image_display.admin_order_field = 'access_icon'
 
     def image_preview(self, obj):
@@ -100,8 +102,8 @@ class MobileAccessAdmin(admin.ModelAdmin):
                 '<img src="/{}" class="mobile_access_image" />',
                 obj.access_icon
             )
-        return "无图片"
-    image_preview.short_description = '图片预览'
+        return _('No Image')
+    image_preview.short_description = _('Preview')
 
     class Media:
         css = {

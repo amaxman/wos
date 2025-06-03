@@ -17,41 +17,41 @@ class DictType(BasicModel):
         return self.dict_name
 
     class Meta:
-        verbose_name = _('字典类型')
-        verbose_name_plural = _('字典类型管理')
+        verbose_name = _('Dict Type')
+        verbose_name_plural = _('Dict Type Admin')
         db_table = 'sys_dict_type'
         ordering = ['dict_type']
 
 
 class DictData(BasicModel):
-    dict_label = models.CharField(verbose_name='字典标签', max_length=100)
-    dict_value = models.CharField(verbose_name='字典键值', max_length=100)
-    dict_order_num = models.IntegerField(verbose_name='序号', null=True, blank=True, default=0)
+    dict_label = models.CharField(verbose_name=_('Dict Data Label'), max_length=100)
+    dict_value = models.CharField(verbose_name=_('Dict Data Value'), max_length=100)
+    dict_order_num = models.IntegerField(verbose_name=_('Dict Data Order Num'), null=True, blank=True, default=0)
     dict_type = models.ForeignKey(
         to=DictType,
         on_delete=models.CASCADE,
         related_name='items',
         parent_link=True,
-        verbose_name="字典名称"
+        verbose_name=_('Dict Data Name')
     )
-    is_sys = models.CharField(verbose_name='是否系统字典', max_length=1, default='0')
-    status = models.CharField(verbose_name='状态', max_length=1, default='0')
+    is_sys = models.CharField(verbose_name=_('Is System'), max_length=1, default='0')
+    status = models.CharField(verbose_name=_('Status'), max_length=1, default='0')
 
     def __str__(self):
         return self.dict_label
 
     class Meta:
-        verbose_name = '字典类型明细'
-        verbose_name_plural = '字典类型明细'
+        verbose_name = _('Dict Data')
+        verbose_name_plural = _('Dict Data')
         db_table = 'sys_dict_data'
         ordering = ['dict_type', 'dict_order_num', 'dict_value']
 
 
 class MobileAccess(BasicModel):
-    access_title = models.CharField(verbose_name='标题', max_length=10)
-    access_code = models.CharField(verbose_name='编码', max_length=20)
-    access_order_num = models.IntegerField(verbose_name='排序', null=True, blank=True, default=0)
-    access_icon = models.ImageField(verbose_name='照片', upload_to=post_image_path)
+    access_title = models.CharField(verbose_name=_('Mobile Access Title'), max_length=10)
+    access_code = models.CharField(verbose_name=_('Mobile Access Code'), max_length=20)
+    access_order_num = models.IntegerField(verbose_name=_('Mobile Access Order Num'), null=True, blank=True, default=0)
+    access_icon = models.ImageField(verbose_name=_('Mobile Access Image'), upload_to=post_image_path)
 
     def __str__(self):
         return self.access_title
@@ -76,7 +76,7 @@ class MobileAccess(BasicModel):
         queryset.delete()
 
     class Meta:
-        verbose_name = '移动端入口'
-        verbose_name_plural = '移动端入口'
+        verbose_name = _('Mobile Access')
+        verbose_name_plural = _('Mobile Access')
         db_table = 'sys_mobile_access'
         ordering = ['access_order_num', 'access_code']

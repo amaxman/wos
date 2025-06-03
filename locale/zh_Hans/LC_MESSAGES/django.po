@@ -88,6 +88,7 @@ msgstr "系统配置"
 
 msgid "Dict Type Name"
 msgstr "字典名称"
+
 msgid "Dict Type Cate"
 msgstr "类别"
 
@@ -97,8 +98,101 @@ msgstr "是否系统"
 msgid "Status"
 msgstr "状态"
 
+msgid "Start Date"
+msgstr "开始日期"
+
+msgid "End Date"
+msgstr "结束日期"
+
+msgid "Create By"
+msgstr "创建人"
+
+msgid "Create Time"
+msgstr "创建时间"
+
+msgid "Update By"
+msgstr "更新人"
+
+msgid "Update Time"
+msgstr "更新日期"
+
+msgid "Basic Info"
+msgstr "基础信息"
+
+msgid "Time"
+msgstr "时间"
+
+msgid "User Info"
+msgstr "用户信息"
+
+msgid "Detail"
+msgstr "明细"
+
+msgid "ICON"
+msgstr "图标"
+
+msgid "Preview"
+msgstr "预览"
+
+msgid "Click to View Image"
+msgstr "点击查看原图"
+
+msgid "No Image"
+msgstr "无图片"
+
 msgid "Dict Type"
 msgstr "数据字典类型"
 
-msgid "Dict Type admin"
-msgstr "数据字典类型管理"
+msgid "Dict Type Admin"
+msgstr "数据字典类型"
+
+msgid "Dict Data"
+msgstr "数据字典值"
+
+msgid "Dict Data Label"
+msgstr "字典标签"
+
+msgid "Dict Data Value"
+msgstr "字典键值"
+
+msgid "Dict Data Order Num"
+msgstr "序号"
+
+msgid "Dict Data Name"
+msgstr "字典名称"
+
+msgid "Dict Type List"
+msgstr "字典类型明细"
+
+msgid "Mobile Access Title"
+msgstr "标题"
+
+msgid "Mobile Access Code"
+msgstr "编码"
+
+msgid "Mobile Access Order Num"
+msgstr "排序"
+
+msgid "Mobile Access Image"
+msgstr "图片"
+
+msgid "Mobile Access"
+msgstr "移动端入口"
+
+msgid "Work Order"
+msgstr "工单"
+
+msgid "Work Order Title"
+msgstr "标题"
+
+msgid "Work Order Content"
+msgstr "内容"
+
+msgid "Work Order Executor"
+msgstr "执行人"
+
+msgid "Work Order Staff Percent"
+msgstr "完成百分比"
+
+msgid "Work Order Staff"
+msgstr "工单人员"

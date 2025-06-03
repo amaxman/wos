@@ -88,6 +88,7 @@ msgstr "System Configuration"
 
 msgid "Dict Type Name"
 msgstr "Name"
+
 msgid "Dict Type Cate"
 msgstr "Category"
 
@@ -97,9 +98,101 @@ msgstr "Is System"
 msgid "Status"
 msgstr ""
 
+msgid "Start Date"
+msgstr "Start Date"
+
+msgid "End Date"
+msgstr "End Date"
+
+msgid "Create By"
+msgstr "Create By"
+
+msgid "Create Time"
+msgstr "Create Time"
+
+msgid "Update By"
+msgstr "Update By"
+
+msgid "Update Time"
+msgstr "Update Time"
+
+msgid "Basic Info"
+msgstr "Basic Info"
+
+msgid "Time"
+msgstr "Time"
+
+msgid "User Info"
+msgstr "User Info"
+
+msgid "Detail"
+msgstr "Detail"
+
+msgid "ICON"
+msgstr "ICON"
+
+msgid "Preview"
+msgstr "Preview"
+
+msgid "Click to View Image"
+msgstr "Click to View Image"
+
+msgid "No Image"
+msgstr "No Image"
+
 msgid "Dict Type"
 msgstr "Dict Type"
 
 msgid "Dict Type Admin"
-msgstr "Manage Dict Type"
+msgstr "Dict Type"
 
+msgid "Dict Data"
+msgstr "Dict Data"
+
+msgid "Dict Data Label"
+msgstr "Label"
+
+msgid "Dict Data Value"
+msgstr "Value"
+
+msgid "Dict Data Order Num"
+msgstr "Order Num"
+
+msgid "Dict Data Name"
+msgstr "Name"
+
+msgid "Dict Type List"
+msgstr "Dict Type List"
+
+msgid "Mobile Access Title"
+msgstr "Title"
+
+msgid "Mobile Access Code"
+msgstr "Code"
+
+msgid "Mobile Access Order Num"
+msgstr "Order Num"
+
+msgid "Mobile Access Image"
+msgstr "Image"
+
+msgid "Mobile Access"
+msgstr "Mobile Access"
+
+msgid "Work Order"
+msgstr "Work Order"
+
+msgid "Work Order Title"
+msgstr "Title"
+
+msgid "Work Order Content"
+msgstr "Content"
+
+msgid "Work Order Executor"
+msgstr "Executor"
+
+msgid "Work Order Staff Percent"
+msgstr "Percent"
+
+msgid "Work Order Staff"
+msgstr "Work Order Staff"

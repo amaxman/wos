@@ -2,23 +2,23 @@ from django.contrib import admin
 from django.utils.html import format_html
 
 from model.models import BasicModelAdmin
-
+from django.utils.translation import gettext_lazy as _
 
 class WorkOrderAdmin(BasicModelAdmin):
     fieldsets = [
-        ('基础信息', {
+        (_('Basic Info'), {
             'fields': [
                 'title',
                 'content',
             ],
         }),
-        ('时间', {
+        (_('Time'), {
             'fields': [
                 'start_date',
                 'end_date',
             ],
         }),
-        ('用户信息', {
+        (_('User Info'), {
             'fields': [
                 'create_by',
                 'create_time',
@@ -42,14 +42,14 @@ class WorkOrderAdmin(BasicModelAdmin):
 
 class WorkOrderStaffAdmin(BasicModelAdmin):
     fieldsets = [
-        ('基础信息', {
+        (_('Basic Info'), {
             'fields': [
                 'work_order',
                 'staff_id',
                 'work_order_percent',
             ],
         }),
-        ('用户信息', {
+        (_('User Info'), {
             'fields': [
                 'create_by',
                 'create_time',
