@@ -4,12 +4,15 @@ from django.utils.html import format_html
 from model.models import BasicModelAdmin
 from django.utils.translation import gettext_lazy as _
 
+
 class WorkOrderAdmin(BasicModelAdmin):
     fieldsets = [
         (_('Basic Info'), {
             'fields': [
                 'title',
                 'content',
+                'cate',
+                'level',
             ],
         }),
         (_('Time'), {
@@ -33,6 +36,8 @@ class WorkOrderAdmin(BasicModelAdmin):
         'content',
         'start_date',
         'end_date',
+        'cate',
+        'level',
     ]
     search_fields = [
         'title',

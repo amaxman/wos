@@ -22,6 +22,9 @@ msgstr ""
 msgid "Django administration"
 msgstr "工单管理系统"
 
+msgid "Select Language"
+msgstr "选择语言"
+
 msgid "Models in the %(name)s application"
 msgstr ""
 
@@ -181,6 +184,12 @@ msgstr "移动端入口"
 
 msgid "Work Order"
 msgstr "工单"
+
+msgid "Work Order Cate"
+msgstr "类别"
+
+msgid "Work Order Level"
+msgstr "类别"
 
 msgid "Work Order Title"
 msgstr "标题"

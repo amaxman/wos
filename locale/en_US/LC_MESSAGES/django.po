@@ -20,6 +20,9 @@ msgstr ""
 msgid "Django administration"
 msgstr "Work Order Management System"
 
+msgid "Select Language"
+msgstr "Select Language"
+
 #: templates/admin/app_list.html:8
 #, python-format
 msgid "Models in the %(name)s application"
@@ -181,6 +184,12 @@ msgstr "Mobile Access"
 
 msgid "Work Order"
 msgstr "Work Order"
+
+msgid "Work Order Cate"
+msgstr "Cate"
+
+msgid "Work Order Level"
+msgstr "Level"
 
 msgid "Work Order Title"
 msgstr "Title"
