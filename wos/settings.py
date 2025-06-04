@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATABASES_DIR = BASE_DIR.parent / 'databases'
@@ -38,9 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'django_extensions',
     'system',
     'work_order',
-    'utils'
+    'utils',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -59,8 +61,7 @@ ROOT_URLCONF = 'wos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,7 +123,6 @@ LOCALE_PATHS = [
     BASE_DIR / 'locale',  # 假设locale目录在项目根目录下
 ]
 
-
 # endregion
 
 # region 时间
@@ -145,3 +145,22 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Django REST framework 配置（可选）
+REST_FRAMEWORK = {
+    # 分页配置
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+
+    # 权限配置
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',  # 默认允许所有访问，生产环境需调整
+    ],
+
+    # 认证配置
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'core.authentication.SessionIdAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+}
