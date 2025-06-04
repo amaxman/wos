@@ -205,3 +205,21 @@ msgstr "完成百分比"
 
 msgid "Work Order Staff"
 msgstr "工单人员"
+
+msgid "Invalid request parameters"
+msgstr "非法请求参数"
+
+msgid "Invalid credentials"
+msgstr "认证失败"
+
+msgid "User account is disabled"
+msgstr "用户账户已被禁用"
+
+msgid "Login successful"
+msgstr "登陆成功"
+
+msgid "Authentication credentials were not provided"
+msgstr "为提供登陆令牌"
+
+msgid "Invalid Media Type"
+msgstr "非法的媒体类型，应为application/json"

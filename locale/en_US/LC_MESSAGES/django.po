@@ -205,3 +205,21 @@ msgstr "Percent"
 
 msgid "Work Order Staff"
 msgstr "Work Order Staff"
+
+msgid "Invalid request parameters"
+msgstr "Invalid request parameters"
+
+msgid "Invalid credentials"
+msgstr "Invalid credentials"
+
+msgid "User account is disabled"
+msgstr "User account is disabled"
+
+msgid "Login successful"
+msgstr "Login successful"
+
+msgid "Authentication credentials were not provided"
+msgstr "Authentication credentials were not provided"
+
+msgid "Invalid Media Type"
+msgstr "Invalid Media Type"
