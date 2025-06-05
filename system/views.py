@@ -1,14 +1,17 @@
 from django.shortcuts import render
 
 from rest_framework import viewsets, permissions, filters
+
+from core.views import BasicListView
 from .models import DictType, DictData
+
 from .serializers import DictTypeSerializer, DictDataSerializer
+from rest_framework.generics import ListAPIView
 
 
-class DictTypeViewSet(viewsets.ModelViewSet):
+class DictTypeListView(BasicListView):
     queryset = DictType.objects.all()
     serializer_class = DictTypeSerializer
-    permission_classes = [permissions.AllowAny]
 
     def list(self, request, *args, **kwargs):
         print("===== 进入 list 方法 =====")
@@ -17,7 +20,7 @@ class DictTypeViewSet(viewsets.ModelViewSet):
         return super().list(request, *args, **kwargs)
 
 
-class DictDataViewSet(viewsets.ModelViewSet):
+class DictDataListView(BasicListView):
     """
     API 端点，允许 DictData 实例进行查看和编辑。
     支持按 dict_type 过滤。

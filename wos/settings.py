@@ -164,4 +164,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ],
+
+    # 异常
+    'EXCEPTION_HANDLER': 'core.exception.custom_exception_handler'
 }

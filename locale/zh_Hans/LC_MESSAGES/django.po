@@ -223,3 +223,24 @@ msgstr "为提供登陆令牌"
 
 msgid "Invalid Media Type"
 msgstr "非法的媒体类型，应为application/json"
+
+msgid "Exception Unknown"
+msgstr "Unknown Exception"
+
+msgid "Exception Internal"
+msgstr "内部异常"
+
+msgid "Invalid session ID"
+msgstr "非法的登陆令牌"
+
+msgid "Session has expired"
+msgstr "令牌过期，请重新登陆"
+
+msgid "Invalid session data"
+msgstr "非法的令牌数据"
+
+msgid "User not found"
+msgstr "未发现用户"
+
+msgid "User is inactive"
+msgstr "已经被禁用，请联系管理员"

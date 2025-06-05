@@ -223,3 +223,24 @@ msgstr "Authentication credentials were not provided"
 
 msgid "Invalid Media Type"
 msgstr "Invalid Media Type"
+
+msgid "Exception Unknown"
+msgstr "Unknown Exception"
+
+msgid "Exception Internal"
+msgstr "Internal Exception"
+
+msgid "Invalid session ID"
+msgstr "Invalid session ID"
+
+msgid "Session has expired"
+msgstr "Session has expired"
+
+msgid "Invalid session data"
+msgstr "Invalid session data"
+
+msgid "User not found"
+msgstr "User not found"
+
+msgid "User is inactive"
+msgstr "User is inactive"

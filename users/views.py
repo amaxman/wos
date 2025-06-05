@@ -87,7 +87,8 @@ class LoginView(APIView):
             JsonMsg(
                 data={
                     'session_id': request.session.session_key,
-                    'username': user.username
+                    'username': user.username,
+                    'full_name': user.first_name + ' ' + user.last_name,
                 },
                 msgType=True,
                 msg=_('Login successful'),

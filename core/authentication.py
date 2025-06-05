@@ -4,10 +4,12 @@ from django.utils import timezone
 from rest_framework import authentication
 from django.utils.translation import gettext_lazy as _, activate, get_language
 
+from core.exception import CustomAPIException
 from core.language_util import language_map
 from core.rest_util import JsonMsg
 from django.http import JsonResponse
 from rest_framework import exceptions
+from datetime import datetime, timedelta
 
 
 class SessionIdAuthentication(authentication.BaseAuthentication):
@@ -20,10 +22,6 @@ class SessionIdAuthentication(authentication.BaseAuthentication):
         activate(lang_code)
         request.LANGUAGE_CODE = language_map.get(lang_code, 'zh-hans')
 
-        # 调试输出
-        print(f"当前语言: {get_language()}")
-        print(f"翻译测试: {_('Login successful')}")
-
         if not session_id:
             # 未提供 sessionId，返回 None 表示此认证器无法处理
             return self._handle_no_session_id(request)
@@ -33,32 +31,37 @@ class SessionIdAuthentication(authentication.BaseAuthentication):
             session = Session.objects.get(session_key=session_id)
 
             # 检查会话是否过期
+
             if session.expire_date < timezone.now():
-                raise exceptions.AuthenticationFailed('Session has expired')
+                # 如果令牌有效则自动增加7小时，请使用如下2行代码
+                session.set_expiry(datetime.now() + timedelta(hours=7))
+                session.save()
+                # 如果令牌过期，则直接使用如下代码，抛出异常
+                # raise CustomAPIException(JsonMsg(msgType=False, msg=_('Session has expired'), code=404))
 
             # 从会话中获取用户 ID
             session_data = session.get_decoded()
             user_id = session_data.get('_auth_user_id')
 
             if not user_id:
-                raise exceptions.AuthenticationFailed('Invalid session data')
+                raise CustomAPIException(JsonMsg(msgType=False, msg=_('Invalid session data'), code=404))
 
             # 获取关联的用户对象
             try:
                 user = User.objects.get(pk=user_id)
             except User.DoesNotExist:
-                raise exceptions.AuthenticationFailed('User not found')
+                raise CustomAPIException(JsonMsg(msgType=False, msg=_('User not found'), code=404))
 
             # 验证用户是否活跃
             if not user.is_active:
-                raise exceptions.AuthenticationFailed('User is inactive')
+                raise CustomAPIException(JsonMsg(msgType=False, msg=_('User is inactive'), code=404))
 
             # 认证成功，返回用户和认证信息
             return (user, None)
 
         except Session.DoesNotExist:
             # 会话不存在，拒绝访问
-            raise exceptions.AuthenticationFailed('Invalid session ID')
+            raise CustomAPIException(JsonMsg(msgType=False, msg=_('Invalid session ID'), code=404))
 
     def _handle_no_session_id(self, request):
         """处理未找到 session_id 的情况"""
@@ -71,6 +74,7 @@ class SessionIdAuthentication(authentication.BaseAuthentication):
             return JsonResponse(response_data, status=401)
         else:
             # 非 JSON 请求，抛出标准的 DRF 异常
-            raise exceptions.AuthenticationFailed(
-                _('Invalid Media Type')
-            )
+            # raise exceptions.AuthenticationFailed(
+            #     _('Invalid Media Type')
+            # )
+            raise CustomAPIException(JsonMsg(msgType=False, msg=_('Invalid Media Type'), code=404))

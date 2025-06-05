@@ -1,4 +1,15 @@
 from rest_framework import serializers
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+
+class UserInfoSerializer(serializers.ModelSerializer):
+    """用户信息序列化器，包含用户的关键信息"""
+
+    class Meta:
+        model = User
+        fields = ['id', 'first_name', 'last_name', 'email']
 
 
 class LoginSerializer(serializers.Serializer):

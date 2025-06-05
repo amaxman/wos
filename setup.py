@@ -9,5 +9,6 @@ setup(name='wos.ai',
       install_requires=[
           "django",
           "djangorestframework",
+          "django-filter",
       ],
       )
