@@ -21,9 +21,9 @@ from django.urls import path, include
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),  # 语言切换视图
-    path('rest/system/', include('system.urls')),  # REST API
-    path('rest/auth/', include('users.urls')),  # 认证 API
-    path('rest/workOrder/', include('work_order.urls')),  # REST API
+    path('rest/auth/', include('users.urls')),  # 认证Rest接口
+    path('rest/system/', include('system.urls')),  # 系统Rest接口
+    path('rest/workOrder/', include('work_order.urls')),  # 工单Rest接口
     path('', admin.site.urls),  # 添加空路径规则
 
 ]

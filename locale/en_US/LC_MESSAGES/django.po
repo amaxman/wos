@@ -137,6 +137,18 @@ msgstr "ICON"
 msgid "Preview"
 msgstr "Preview"
 
+msgid "Save Successfully"
+msgstr "Save Successfully"
+
+msgid "Save Unsuccessfully"
+msgstr "Save Unsuccessfully"
+
+msgid "Delete Successfully"
+msgstr "Delete Successfully"
+
+msgid "Delete Unsuccessfully"
+msgstr "Delete Unsuccessfully"
+
 msgid "Click to View Image"
 msgstr "Click to View Image"
 
@@ -148,6 +160,15 @@ msgstr "Dict Type"
 
 msgid "Dict Type Admin"
 msgstr "Dict Type"
+
+msgid "Dict Type Save Successful"
+msgstr "保存数据字典类型成功"
+
+msgid "Dict Type Delete Successful"
+msgstr "Delete Successful"
+
+msgid "Dict Type Duplication Dict Type"
+msgstr "Category code duplication"
 
 msgid "Dict Data"
 msgstr "Dict Data"

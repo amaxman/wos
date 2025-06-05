@@ -23,9 +23,17 @@ Rest访问地址：
         列表：http://localhost:8080/rest/system/dictType/list/?format=json&language=zh&sessionId=y8tbvccv0w5n2bf8ogr2jutjab97qsps&limit=1&offset=0
 <img src="images/rest_dict_type.png" />
 
+        获取、更新、删除:http://localhost:8080/rest/system/dictType/5/?language=zh&sessionId=y8tbvccv0w5n2bf8ogr2jutjab97qsps
+<img src="images/rest_dict_type_retrieve_update_destroy.png" />
+<img src="images/rest_dict_type_update_result.png" />
+
     获取数据字典类型数据
         列表:http://localhost:8080/rest/system/dictData/list/?format=json&language=zh&sessionId=y8tbvccv0w5n2bf8ogr2jutjab97qsps&dict_type_id=6&limit=1&offset=0
 <img src="images/rest_dict_data.png" />
+
+        获取、更新、删除:http://localhost:8080/rest/system/dictData/1/?language=zh&sessionId=y8tbvccv0w5n2bf8ogr2jutjab97qsps
+<img src="images/rest_dict_data_retrieve_update_destroy.png" />
+<img src="images/rest_dict_data_update_result.png" />
 
     获取工单
         列表:http://localhost:8080/rest/workOrder/workOrder/list/?format=json&language=zh&sessionId=y8tbvccv0w5n2bf8ogr2jutjab97qsps&start_date__gte=2025-06-01&start_date__lte=2025-06-09&limit=1&offset=0

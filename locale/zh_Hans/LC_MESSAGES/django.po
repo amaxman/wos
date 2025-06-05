@@ -137,6 +137,18 @@ msgstr "图标"
 msgid "Preview"
 msgstr "预览"
 
+msgid "Save Successfully"
+msgstr "保存成功"
+
+msgid "Save Unsuccessfully"
+msgstr "保存失败"
+
+msgid "Delete Successfully"
+msgstr "删除成功"
+
+msgid "Delete Unsuccessfully"
+msgstr "删除失败"
+
 msgid "Click to View Image"
 msgstr "点击查看原图"
 
@@ -148,6 +160,15 @@ msgstr "数据字典类型"
 
 msgid "Dict Type Admin"
 msgstr "数据字典类型"
+
+msgid "Dict Type Save Successful"
+msgstr "保存数据字典类型成功"
+
+msgid "Dict Type Delete Successful"
+msgstr "删除数据字典类型成功"
+
+msgid "Dict Type Duplication Dict Type"
+msgstr "类别编码重复"
 
 msgid "Dict Data"
 msgstr "数据字典值"

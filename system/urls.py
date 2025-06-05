@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import DictTypeListView, DictDataListView
+from .views import DictTypeListView, DictDataListView, DictTypeRetrieveUpdateDestroyView, \
+    DictDataRetrieveUpdateDestroyView
 
 # 创建路由器并注册我们的视图集
 # router = routers.DefaultRouter()
@@ -10,7 +11,7 @@ from .views import DictTypeListView, DictDataListView
 urlpatterns = [
     # path('', include(router.urls)),
     path('dictType/list/', DictTypeListView.as_view(), name='dict-type-list'),
+    path('dictType/<int:pk>/', DictTypeRetrieveUpdateDestroyView.as_view(), name='dict-type-retrieve-update-destroy'),
     path('dictData/list/', DictDataListView.as_view(), name='dict-data-list'),
-    # 如果需要可浏览的 API，可以添加以下内容
-    # path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('dictData/<int:pk>/', DictDataRetrieveUpdateDestroyView.as_view(), name='dict-data-retrieve-update-destroy'),
 ]

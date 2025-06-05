@@ -1,14 +1,15 @@
-from django.shortcuts import render
-
-from rest_framework import viewsets, permissions, filters
+from rest_framework import filters
 
 from core.views import BasicListView
 from .models import DictType, DictData
 
 from .serializers import DictTypeSerializer, DictDataSerializer
-from rest_framework.generics import ListAPIView
+from rest_framework.response import Response
+from rest_framework import generics, status
+from django.utils.translation import gettext_lazy as _
 
 
+# region 字典类型
 class DictTypeListView(BasicListView):
     queryset = DictType.objects.all()
     serializer_class = DictTypeSerializer
@@ -20,6 +21,73 @@ class DictTypeListView(BasicListView):
         return super().list(request, *args, **kwargs)
 
 
+class DictTypeListCreateView(generics.ListCreateAPIView):
+    queryset = DictType.objects.all()
+    serializer_class = DictTypeSerializer
+
+
+class DictTypeRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = DictType.objects.all()
+    serializer_class = DictTypeSerializer
+    lookup_field = 'pk'
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+
+        # 返回自定义格式（包含消息和数据）
+        return Response({
+            'msgType': True,
+            'message': _('Dict Type Save Successful'),
+            'data': serializer.data.get('id'),
+        }, status=status.HTTP_201_CREATED, headers=headers)
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+
+        # region 校验编码是否重复
+        id: int = instance.id
+        dict_type: str = instance.dict_type
+        if dict_type is not None and dict_type != '':
+            querySet = DictType.objects.exclude(id=id).filter(dict_type__iexact=dict_type).all()
+            if querySet.count() > 0:
+                return Response({
+                    'msgType': False,
+                    'msg': _('Save Unsuccessfully'),
+                }, status=status.HTTP_200_OK)
+        # endregion
+
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        if getattr(instance, '_prefetched_objects_cache', None):
+            # 如果存在预取数据，需要重建缓存
+            instance._prefetched_objects_cache = {}
+
+        return Response({
+            'msgType': True,
+            'msg': _('Save Successfully'),
+            'data': serializer.data.get('id'),
+        }, status=status.HTTP_200_OK)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.delete()
+        return Response({
+            'msgType': True,
+            'msg': _('Delete Successfully'),
+        }, status=status.HTTP_204_NO_CONTENT)
+        # return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+# endregion
+
+
+# region 自定明细
 class DictDataListView(BasicListView):
     """
     API 端点，允许 DictData 实例进行查看和编辑。
@@ -44,3 +112,53 @@ class DictDataListView(BasicListView):
         print("请求方法:", request.method)
         print("查询集长度:", self.queryset.count())
         return super().list(request, *args, **kwargs)
+
+
+class DictDataListCreateView(generics.ListCreateAPIView):
+    queryset = DictData.objects.all()
+    serializer_class = DictDataSerializer
+
+
+class DictDataRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = DictData.objects.all()
+    serializer_class = DictDataSerializer
+    lookup_field = 'pk'
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+
+        # region 校验编码是否重复
+        dict_type_id: int = instance.dict_type_id
+        if dict_type_id is not None:
+            querySet = DictType.objects.filter(id=dict_type_id)
+            if querySet.count() == 0:
+                return Response({
+                    'msgType': False,
+                    'msg': _('Save Unsuccessfully'),
+                }, status=status.HTTP_200_OK)
+        # endregion
+
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        if getattr(instance, '_prefetched_objects_cache', None):
+            # 如果存在预取数据，需要重建缓存
+            instance._prefetched_objects_cache = {}
+
+        return Response({
+            'msgType': True,
+            'msg': _('Save Successfully'),
+            'data': serializer.data.get('id'),
+        }, status=status.HTTP_200_OK)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.delete()
+        return Response({
+            'msgType': True,
+            'msg': _('Delete Successfully'),
+        }, status=status.HTTP_204_NO_CONTENT)
+        # return Response(status=status.HTTP_204_NO_CONTENT)
+# endregion

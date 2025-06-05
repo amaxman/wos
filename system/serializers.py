@@ -20,5 +20,5 @@ class DictDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DictData
-        # fields = ['id', 'dict_label', 'dict_value', 'dict_order_num']
-        fields = '__all__'
+        fields = ['id', 'dict_label', 'dict_value', 'dict_order_num', 'dict_type_id', 'dict_type']
+        # fields = '__all__'
