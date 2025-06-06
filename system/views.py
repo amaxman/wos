@@ -1,6 +1,6 @@
 from rest_framework import filters
 
-from core.views import BasicListView
+from core.views import BasicListView, BasicRetrieveUpdateDestroyAPIView
 from .models import DictType, DictData
 
 from .serializers import DictTypeSerializer, DictDataSerializer
@@ -14,35 +14,15 @@ class DictTypeListView(BasicListView):
     queryset = DictType.objects.all()
     serializer_class = DictTypeSerializer
 
-    def list(self, request, *args, **kwargs):
-        print("===== 进入 list 方法 =====")
-        print("请求方法:", request.method)
-        print("查询集长度:", self.queryset.count())
-        return super().list(request, *args, **kwargs)
-
 
 class DictTypeListCreateView(generics.ListCreateAPIView):
     queryset = DictType.objects.all()
     serializer_class = DictTypeSerializer
 
 
-class DictTypeRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+class DictTypeRetrieveUpdateDestroyView(BasicRetrieveUpdateDestroyAPIView):
     queryset = DictType.objects.all()
     serializer_class = DictTypeSerializer
-    lookup_field = 'pk'
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-
-        # 返回自定义格式（包含消息和数据）
-        return Response({
-            'msgType': True,
-            'message': _('Dict Type Save Successful'),
-            'data': serializer.data.get('id'),
-        }, status=status.HTTP_201_CREATED, headers=headers)
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
@@ -74,18 +54,8 @@ class DictTypeRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
             'data': serializer.data.get('id'),
         }, status=status.HTTP_200_OK)
 
-    def destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
-        instance.delete()
-        return Response({
-            'msgType': True,
-            'msg': _('Delete Successfully'),
-        }, status=status.HTTP_204_NO_CONTENT)
-        # return Response(status=status.HTTP_204_NO_CONTENT)
-
 
 # endregion
-
 
 # region 自定明细
 class DictDataListView(BasicListView):
@@ -107,22 +77,15 @@ class DictDataListView(BasicListView):
             queryset = queryset.filter(dict_type_id=dict_type_id)
         return queryset
 
-    def list(self, request, *args, **kwargs):
-        print("===== 进入 list 方法 =====")
-        print("请求方法:", request.method)
-        print("查询集长度:", self.queryset.count())
-        return super().list(request, *args, **kwargs)
-
 
 class DictDataListCreateView(generics.ListCreateAPIView):
     queryset = DictData.objects.all()
     serializer_class = DictDataSerializer
 
 
-class DictDataRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+class DictDataRetrieveUpdateDestroyView(BasicRetrieveUpdateDestroyAPIView):
     queryset = DictData.objects.all()
     serializer_class = DictDataSerializer
-    lookup_field = 'pk'
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
@@ -153,12 +116,4 @@ class DictDataRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
             'data': serializer.data.get('id'),
         }, status=status.HTTP_200_OK)
 
-    def destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
-        instance.delete()
-        return Response({
-            'msgType': True,
-            'msg': _('Delete Successfully'),
-        }, status=status.HTTP_204_NO_CONTENT)
-        # return Response(status=status.HTTP_204_NO_CONTENT)
 # endregion

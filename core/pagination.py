@@ -4,6 +4,7 @@ from rest_framework.response import Response
 
 from core.rest_util import JsonMsg
 from rest_framework.pagination import LimitOffsetPagination
+from django.utils.translation import gettext_lazy as _
 
 
 class CustomLimitOffsetPagination(LimitOffsetPagination):
@@ -13,11 +14,13 @@ class CustomLimitOffsetPagination(LimitOffsetPagination):
     offset_query_param = 'offset'  # 查询参数名：offset
 
     def get_paginated_response(self, data):
-        return Response({
+        response_data = {
             'next': self.get_next_link(),
             'previous': self.get_previous_link(),
             'count': self.count,
             'limit': self.limit,
             'offset': self.offset,
-            'results': data
-        })
+            'list': data
+        }
+        jsonMsg: JsonMsg = JsonMsg(msgType=True, msg=_('Paging Successfully'), data=response_data)
+        return Response(jsonMsg.to_dict())

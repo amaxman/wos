@@ -149,6 +149,12 @@ msgstr "删除成功"
 msgid "Delete Unsuccessfully"
 msgstr "删除失败"
 
+msgid "Load Successfully"
+msgstr "加载数据成功"
+
+msgid "Paging Successfully"
+msgstr "分页获取数据成功"
+
 msgid "Click to View Image"
 msgstr "点击查看原图"
 

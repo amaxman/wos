@@ -1,12 +1,13 @@
-from core.views import BasicListView
+from core.views import BasicListView, BasicRetrieveUpdateDestroyAPIView
 from .models import WorkOrder, WorkOrderStaff
 from .serializers import WorkOrderSerializer, WorkOrderStaffSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import generics, status
 
 
+# region 工单
 class WorkOrderListView(BasicListView):
     """
    工单管理视图集
@@ -67,13 +68,20 @@ class WorkOrderListView(BasicListView):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
-    def _list(self, request, *args, **kwargs):
-        print("===== 进入 list 方法 =====")
-        print("请求方法:", request.method)
-        print("查询集长度:", self.queryset.count())
-        return super().list(request, *args, **kwargs)
+
+class WorkOrderListCreateView(generics.ListCreateAPIView):
+    queryset = WorkOrder.objects.all()
+    serializer_class = WorkOrderSerializer
 
 
+class WorkOrderRetrieveUpdateDestroyView(BasicRetrieveUpdateDestroyAPIView):
+    queryset = WorkOrder.objects.all()
+    serializer_class = WorkOrderSerializer
+
+
+# endregion
+
+# region 工单项
 class WorkOrderStaffListView(BasicListView):
     queryset = WorkOrderStaff.objects.all()
     serializer_class = WorkOrderStaffSerializer
@@ -85,8 +93,13 @@ class WorkOrderStaffListView(BasicListView):
             queryset = queryset.filter(work_order_id=work_order_id)
         return queryset
 
-    def list(self, request, *args, **kwargs):
-        print("===== 进入 list 方法 =====")
-        print("请求方法:", request.method)
-        print("查询集长度:", self.queryset.count())
-        return super().list(request, *args, **kwargs)
+
+class WorkOrderStaffListCreateView(generics.ListCreateAPIView):
+    queryset = WorkOrderStaff.objects.all()
+    serializer_class = WorkOrderStaffSerializer
+
+
+class WorkOrderStaffRetrieveUpdateDestroyView(BasicRetrieveUpdateDestroyAPIView):
+    queryset = WorkOrderStaff.objects.all()
+    serializer_class = WorkOrderStaffSerializer
+# endregion

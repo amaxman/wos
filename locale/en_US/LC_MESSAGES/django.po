@@ -149,6 +149,12 @@ msgstr "Delete Successfully"
 msgid "Delete Unsuccessfully"
 msgstr "Delete Unsuccessfully"
 
+msgid "Load Successfully"
+msgstr "Load Successfully"
+
+msgid "Paging Successfully"
+msgstr "Paging Successfully"
+
 msgid "Click to View Image"
 msgstr "Click to View Image"
 
