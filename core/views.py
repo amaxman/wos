@@ -12,6 +12,25 @@ class BasicListView(ListAPIView):
     pagination_class = CustomLimitOffsetPagination
 
 
+class ListCreateAPIView(generics.ListCreateAPIView):
+    def create(self, request, *args, **kwargs):
+        data = request.data  # 复制数据，因为 request.data 是不可变的
+
+        # 使用修改后的数据创建序列化器
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+
+        self.perform_create(serializer)
+
+        # 返回响应
+        headers = self.get_success_headers(serializer.data)
+        return Response({
+            'msgType': True,
+            'msg': _('Save Successfully'),
+            'data': serializer.data.get('id'),
+        }, status=status.HTTP_201_CREATED, headers=headers)
+
+
 class BasicRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'pk'
 

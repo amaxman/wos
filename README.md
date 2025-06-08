@@ -68,7 +68,7 @@ http://localhost:8080/rest/system/dictData/list/?language=zh&sessionId=y8tbvccv0
 
 #### 创建
 ```bash
-http://localhost:8080/rest/system/dictData/?language=zh&sessionId=y8tbvccv0w5n2bf8ogr2jutjab97qsps&dict_type=6
+http://localhost:8080/rest/system/dictData/?language=zh&sessionId=y8tbvccv0w5n2bf8ogr2jutjab97qsps&dict_type_code=work_order_cate
 ``` 
 ##### 本接口界面与DictType 创建功能类似，无图
 

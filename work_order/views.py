@@ -1,4 +1,4 @@
-from core.views import BasicListView, BasicRetrieveUpdateDestroyAPIView
+from core.views import BasicListView, BasicRetrieveUpdateDestroyAPIView, ListCreateAPIView
 from .models import WorkOrder, WorkOrderStaff
 from .serializers import WorkOrderSerializer, WorkOrderStaffSerializer
 from django_filters.rest_framework import DjangoFilterBackend
@@ -69,7 +69,7 @@ class WorkOrderListView(BasicListView):
         return Response(serializer.data)
 
 
-class WorkOrderListCreateView(generics.ListCreateAPIView):
+class WorkOrderListCreateView(ListCreateAPIView):
     queryset = WorkOrder.objects.all()
     serializer_class = WorkOrderSerializer
 

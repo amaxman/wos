@@ -216,7 +216,7 @@ msgid "Work Order Cate"
 msgstr "类别"
 
 msgid "Work Order Level"
-msgstr "类别"
+msgstr "级别"
 
 msgid "Work Order Title"
 msgstr "标题"

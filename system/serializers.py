@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import DictType, DictData
 
+from django.utils.translation import gettext_lazy as _
+
 
 class DictTypeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,7 +15,8 @@ class DictDataSerializer(serializers.ModelSerializer):
     # 嵌套显示 DictType 信息，而不仅显示外键 ID
     dict_type = serializers.StringRelatedField(read_only=True)
     dict_type_id = serializers.PrimaryKeyRelatedField(
-        queryset=DictType.objects.all(),
+        label=_('Dict Type'),
+        queryset=DictType.objects,
         source='dict_type',
         write_only=True
     )
