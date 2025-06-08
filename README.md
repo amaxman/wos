@@ -44,6 +44,12 @@ http://localhost:8080/rest/system/dictType/list/?language=zh&limit=1&sessionId=y
 ``` 
 <img src="images/rest_dict_type.png" />
 
+#### 创建
+```bash
+http://localhost:8080/rest/system/dictType/?language=zh&sessionId=y8tbvccv0w5n2bf8ogr2jutjab97qsps
+``` 
+<img src="images/rest_dict_type_create.png" />
+
 #### 获取、更新、删除
 ```bash
 http://localhost:8080/rest/system/dictType/5/?language=zh&sessionId=y8tbvccv0w5n2bf8ogr2jutjab97qsps
@@ -55,9 +61,16 @@ http://localhost:8080/rest/system/dictType/5/?language=zh&sessionId=y8tbvccv0w5n
 
 #### 类型数据列表
 ```bash
-http://localhost:8080/rest/system/dictData/list/?language=zh&sessionId=y8tbvccv0w5n2bf8ogr2jutjab97qsps&dict_type_id=6&limit=1&offset=0
+http://localhost:8080/rest/system/dictData/list/?language=zh&sessionId=y8tbvccv0w5n2bf8ogr2jutjab97qsps&dict_type_code=work_order_cate&limit=10&offset=0
 ``` 
+    其中，dict_type_code为上级数据数据类型DictType中的dict_type
 <img src="images/rest_dict_data.png" />
+
+#### 创建
+```bash
+http://localhost:8080/rest/system/dictData/?language=zh&sessionId=y8tbvccv0w5n2bf8ogr2jutjab97qsps&dict_type=6
+``` 
+    本接口界面与DictType 创建功能类似，无图
 
 #### 获取、更新、删除
 ```bash

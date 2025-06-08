@@ -19,6 +19,35 @@ class DictTypeListCreateView(generics.ListCreateAPIView):
     queryset = DictType.objects.all()
     serializer_class = DictTypeSerializer
 
+    def create(self, request, *args, **kwargs):
+        data = request.data  # 复制数据，因为 request.data 是不可变的
+
+        # 使用修改后的数据创建序列化器
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+
+        # region 校验编码是否已经存在
+        dict_type = data.get('dict_type')
+        if dict_type is not None and dict_type != '':
+            querySet = DictType.objects.filter(dict_type__iexact=dict_type).all()
+            if querySet.count() > 0:
+                return Response({
+                    'msgType': False,
+                    'msg': _('Save Unsuccessfully'),
+                }, status=status.HTTP_200_OK)
+        # endregion
+
+        # 保存对象
+        self.perform_create(serializer)
+
+        # 返回响应
+        headers = self.get_success_headers(serializer.data)
+        return Response({
+            'msgType': True,
+            'msg': _('Save Successfully'),
+            'data': serializer.data.get('id'),
+        }, status=status.HTTP_201_CREATED, headers=headers)
+
 
 class DictTypeRetrieveUpdateDestroyView(BasicRetrieveUpdateDestroyAPIView):
     queryset = DictType.objects.all()
@@ -72,8 +101,12 @@ class DictDataListView(BasicListView):
     # 支持通过 URL 参数 ?dict_type_id=1 过滤数据
     def get_queryset(self):
         queryset = super().get_queryset()
-        dict_type_id = self.request.query_params.get('dict_type_id')
-        if dict_type_id is not None:
+        dict_type_code = self.request.query_params.get('dict_type_code')
+        if dict_type_code is not None:
+            dict_type_queryset = DictType.objects.filter(dict_type=dict_type_code)
+            if dict_type_queryset.count() == 0:
+                return queryset.none()
+            dict_type_id = dict_type_queryset.first().id
             queryset = queryset.filter(dict_type_id=dict_type_id)
         return queryset
 
@@ -81,6 +114,35 @@ class DictDataListView(BasicListView):
 class DictDataListCreateView(generics.ListCreateAPIView):
     queryset = DictData.objects.all()
     serializer_class = DictDataSerializer
+
+    def create(self, request, *args, **kwargs):
+        data = request.data  # 复制数据，因为 request.data 是不可变的
+
+        # 使用修改后的数据创建序列化器
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+
+        # region 校验编码是否已经存在
+        dict_type_id = data.get('dict_type_id')
+        if dict_type_id is not None:
+            querySet = DictType.objects.filter(id=dict_type_id)
+            if querySet.count() == 0:
+                return Response({
+                    'msgType': False,
+                    'msg': _('Save Unsuccessfully'),
+                }, status=status.HTTP_200_OK)
+        # endregion
+
+        # 保存对象
+        self.perform_create(serializer)
+
+        # 返回响应
+        headers = self.get_success_headers(serializer.data)
+        return Response({
+            'msgType': True,
+            'msg': _('Save Successfully'),
+            'data': serializer.data.get('id'),
+        }, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class DictDataRetrieveUpdateDestroyView(BasicRetrieveUpdateDestroyAPIView):
