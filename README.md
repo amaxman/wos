@@ -56,7 +56,7 @@ http://localhost:8080/rest/system/dictType/5/?language=zh&sessionId=y8tbvccv0w5n
 ``` 
 <img src="images/rest_dict_type_retrieve_update_destroy.png" />
 
-        注意：如下效果是注释core.BasicRetrieveUpdateDestroyAPIView.retrieve以后的结果
+##### 注意：如下效果是注释core.BasicRetrieveUpdateDestroyAPIView.retrieve以后的结果
 <img src="images/rest_dict_type_update_result.png" />
 
 #### 类型数据列表
@@ -70,7 +70,7 @@ http://localhost:8080/rest/system/dictData/list/?language=zh&sessionId=y8tbvccv0
 ```bash
 http://localhost:8080/rest/system/dictData/?language=zh&sessionId=y8tbvccv0w5n2bf8ogr2jutjab97qsps&dict_type=6
 ``` 
-    本接口界面与DictType 创建功能类似，无图
+##### 本接口界面与DictType 创建功能类似，无图
 
 #### 获取、更新、删除
 ```bash
