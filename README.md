@@ -106,6 +106,12 @@ http://localhost:8080/rest/workOrder/workOrderStaff/list/?format=json&language=z
 ```
 <img src="images/rest_work_order_staff.png" />
 
+#### 工单派工
+```bash
+http://localhost:8080/rest/workOrder/workOrderStaff/?language=zh&sessionId=y8tbvccv0w5n2bf8ogr2jutjab97qsps
+```
+<img src="images/rest_work_order_staff_create.png" />
+
 #### 获取、更新、删除
 ```bash
 http://localhost:8080/rest/workOrder/workOrderStaff/4/?language=zh&sessionId=y8tbvccv0w5n2bf8ogr2jutjab97qsps
