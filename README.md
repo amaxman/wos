@@ -10,13 +10,16 @@
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple django-filter
 
 ### 语言包
+
+    生成:# -l zh_CN，本代码表示生成简体中文语言包
 ```bash
-    生成:
-    python3 manage.py makemessages -l zh_Hans  # 或者 -l zh_CN，本代码表示生成简体中文语言包
-    
-    编译:
-    python3 manage.py compilemessages  -i "venv"，其中，-i "venv"表示仅仅压缩本虚拟目录中
-```
+  python3 manage.py makemessages -l zh_Hans  
+``` 
+    编译:参数，-i "venv"表示仅仅压缩本虚拟目录中的语言包
+```bash
+    python3 manage.py compilemessages  -i "venv"
+``` 
+
 ## Rest访问地址：
 ```bash
     注意事项：
