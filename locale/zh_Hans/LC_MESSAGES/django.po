@@ -137,6 +137,15 @@ msgstr "图标"
 msgid "Preview"
 msgstr "预览"
 
+msgid "Start Date Required"
+msgstr "开始日期不允许为空"
+
+msgid "End Date Required"
+msgstr "结束日期不允许为空"
+
+msgid "Check Date Area"
+msgstr "开始日期必须不晚于结束日期"
+
 msgid "Save Successfully"
 msgstr "保存成功"
 
@@ -161,6 +170,12 @@ msgstr "点击查看原图"
 msgid "No Image"
 msgstr "无图片"
 
+msgid "Percent Check MinValue"
+msgstr "百分比不能小于0"
+
+msgid "Percent Check MaxValue"
+msgstr "百分比不能小于0"
+
 msgid "Dict Type"
 msgstr "数据字典类型"
 
@@ -175,6 +190,15 @@ msgstr "删除数据字典类型成功"
 
 msgid "Dict Type Duplication Dict Type"
 msgstr "类别编码重复"
+
+msgid "Dict Type Not Find By Code"
+msgstr "不能通过编号获取数据字典"
+
+msgid "Dict Type Code Be Used"
+msgstr "编码被占用"
+
+msgid "Dict Type Be Deleted"
+msgstr "数据字典被删除"
 
 msgid "Dict Data"
 msgstr "数据字典值"
@@ -212,6 +236,9 @@ msgstr "移动端入口"
 msgid "Work Order"
 msgstr "工单"
 
+msgid "Work Order Deleted"
+msgstr "工单已经被删除"
+
 msgid "Work Order Cate"
 msgstr "类别"
 
@@ -232,6 +259,15 @@ msgstr "完成百分比"
 
 msgid "Work Order Staff"
 msgstr "工单人员"
+
+msgid "Work Order Staff Work Id Required"
+msgstr "工单标识不允许为空"
+
+msgid "Work Order Staff Staff Id Required"
+msgstr "工单人员不允许为空"
+
+msgid "Work Order Staff Repeated"
+msgstr "请勿重复添加员工"
 
 msgid "Invalid request parameters"
 msgstr "非法请求参数"

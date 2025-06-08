@@ -33,7 +33,7 @@ class DictTypeListCreateView(generics.ListCreateAPIView):
             if querySet.count() > 0:
                 return Response({
                     'msgType': False,
-                    'msg': _('Save Unsuccessfully'),
+                    'msg': _('Dict Type Not Find By Code') + dict_type,
                 }, status=status.HTTP_200_OK)
         # endregion
 
@@ -65,7 +65,7 @@ class DictTypeRetrieveUpdateDestroyView(BasicRetrieveUpdateDestroyAPIView):
             if querySet.count() > 0:
                 return Response({
                     'msgType': False,
-                    'msg': _('Save Unsuccessfully'),
+                    'msg': _('Dict Type Code Be Used') + dict_type,
                 }, status=status.HTTP_200_OK)
         # endregion
 
@@ -129,7 +129,7 @@ class DictDataListCreateView(generics.ListCreateAPIView):
             if querySet.count() == 0:
                 return Response({
                     'msgType': False,
-                    'msg': _('Save Unsuccessfully'),
+                    'msg': _('Dict Type Be Deleted'),
                 }, status=status.HTTP_200_OK)
         # endregion
 
@@ -160,7 +160,7 @@ class DictDataRetrieveUpdateDestroyView(BasicRetrieveUpdateDestroyAPIView):
             if querySet.count() == 0:
                 return Response({
                     'msgType': False,
-                    'msg': _('Save Unsuccessfully'),
+                    'msg': _('Dict Type Be Deleted'),
                 }, status=status.HTTP_200_OK)
         # endregion
 

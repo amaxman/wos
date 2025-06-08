@@ -50,7 +50,7 @@ class WorkOrderStaffAdmin(BasicModelAdmin):
         (_('Basic Info'), {
             'fields': [
                 'work_order',
-                'staff_id',
+                'staff',
                 'work_order_percent',
             ],
         }),
@@ -66,6 +66,6 @@ class WorkOrderStaffAdmin(BasicModelAdmin):
     ]
     list_display = [
         'work_order',
-        'staff_id',
+        'staff',
         'work_order_percent',
     ]

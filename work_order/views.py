@@ -1,3 +1,6 @@
+from django.contrib.auth.models import User
+from django.utils import timezone
+
 from core.views import BasicListView, BasicRetrieveUpdateDestroyAPIView, ListCreateAPIView
 from .models import WorkOrder, WorkOrderStaff
 from .serializers import WorkOrderSerializer, WorkOrderStaffSerializer
@@ -5,6 +8,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
 from rest_framework import generics, status
+from django.utils.translation import gettext_lazy as _
 
 
 # region 工单
@@ -73,6 +77,51 @@ class WorkOrderListCreateView(ListCreateAPIView):
     queryset = WorkOrder.objects.all()
     serializer_class = WorkOrderSerializer
 
+    def create(self, request, *args, **kwargs):
+        data = request.data.copy()  # 复制数据，因为 request.data 是不可变的
+
+        # region 获取用户信息
+        # 获取当前用户
+        user = request.user
+        data['create_by'] = user.id
+        data['create_time'] = timezone.now()
+        data['update_by'] = user.id
+        data['update_time'] = timezone.now()
+        # endregion
+
+        # region 开始日期
+        start_date = data['start_date']
+        end_date = data['end_date']
+        if start_date is None:
+            return Response({
+                'msgType': False,
+                'msg': _('Start Date Required'),
+            }, status=status.HTTP_201_CREATED)
+        # endregion
+        # region 开始时间与结束时间比较
+        if end_date is not None:
+            if start_date > end_date:
+                return Response({
+                    'msgType': False,
+                    'msg': _('Check Date Area'),
+                }, status=status.HTTP_201_CREATED)
+
+        # endregion
+
+        # 使用修改后的数据创建序列化器
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+
+        self.perform_create(serializer)
+
+        # 返回响应
+        headers = self.get_success_headers(serializer.data)
+        return Response({
+            'msgType': True,
+            'msg': _('Save Successfully'),
+            'data': serializer.data.get('id'),
+        }, status=status.HTTP_201_CREATED, headers=headers)
+
 
 class WorkOrderRetrieveUpdateDestroyView(BasicRetrieveUpdateDestroyAPIView):
     queryset = WorkOrder.objects.all()
@@ -94,9 +143,97 @@ class WorkOrderStaffListView(BasicListView):
         return queryset
 
 
-class WorkOrderStaffListCreateView(generics.ListCreateAPIView):
+class WorkOrderStaffListCreateView(ListCreateAPIView):
     queryset = WorkOrderStaff.objects.all()
     serializer_class = WorkOrderStaffSerializer
+
+    def check_staff_exist(self, workOrderId: int, staffId: int) -> bool:
+        """检查工单是否已关联指定工作人员（优化版）"""
+        return WorkOrderStaff.objects.filter(
+            work_order_id=workOrderId,
+            staff_id=staffId
+        ).exists()
+
+    def create(self, request, *args, **kwargs):
+        data = request.data.copy()  # 复制数据，因为 request.data 是不可变的
+
+        # 使用修改后的数据创建序列化器
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+
+        # region 获取work_order_id并确定是否存在
+        work_order_id = data.get('work_order')
+        if work_order_id is None or work_order_id == '':
+            return Response({
+                'msgType': False,
+                'msg': _('Work Order Staff Work Id Required'),
+            }, status=status.HTTP_201_CREATED)
+
+        workOrder: WorkOrder = WorkOrder.objects.get(id=work_order_id)
+        if workOrder is None:
+            return Response({
+                'msgType': False,
+                'msg': _('Work Order Deleted'),
+            }, status=status.HTTP_201_CREATED)
+        # endregion
+
+        # region 根据staff_id获取
+        staffId: str = data.get('staff')
+        if staffId is None or staffId == '':
+            return Response({
+                'msgType': False,
+                'msg': _('Work Order Staff Staff Id Required'),
+            }, status=status.HTTP_201_CREATED)
+        user: User = User.objects.get(id=staffId)
+        if user is None:
+            return Response({
+                'msgType': False,
+                'msg': _('User not found'),
+            }, status=status.HTTP_201_CREATED)
+        # endregion
+
+        # region 是否执行人已经被添加
+        checkStaff = self.check_staff_exist(int(work_order_id), int(staffId))
+        if checkStaff:
+            return Response({
+                'msgType': False,
+                'msg': _('Work Order Staff Repeated'),
+            }, status=status.HTTP_201_CREATED)
+        # endregion
+
+        # region 获取用户信息
+        # 获取当前用户
+        user = request.user
+        data['create_by'] = user.id
+        data['create_time'] = timezone.now()
+        data['update_by'] = user.id
+        data['update_time'] = timezone.now()
+        # endregion
+
+        work_order_percent: float = float(data.get('work_order_percent')) / 100
+        if work_order_percent is None:
+            data['work_order_percent'] = 0
+        else:
+            if work_order_percent < 0:
+                return Response({
+                    'msgType': False,
+                    'msg': _('Percent Check MinValue'),
+                }, status=status.HTTP_201_CREATED)
+            elif work_order_percent > 100:
+                return Response({
+                    'msgType': False,
+                    'msg': _('Percent Check MaxValue'),
+                }, status=status.HTTP_201_CREATED)
+
+        self.perform_create(serializer)
+
+        # 返回响应
+        headers = self.get_success_headers(serializer.data)
+        return Response({
+            'msgType': True,
+            'msg': _('Save Successfully'),
+            'data': serializer.data.get('id'),
+        }, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class WorkOrderStaffRetrieveUpdateDestroyView(BasicRetrieveUpdateDestroyAPIView):

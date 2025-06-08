@@ -137,6 +137,15 @@ msgstr "ICON"
 msgid "Preview"
 msgstr "Preview"
 
+msgid "Start Date Required"
+msgstr "Require Start Date"
+
+msgid "End Date Required"
+msgstr "Require End Date"
+
+msgid "Check Date Area"
+msgstr "Start Date before End Date"
+
 msgid "Save Successfully"
 msgstr "Save Successfully"
 
@@ -161,6 +170,12 @@ msgstr "Click to View Image"
 msgid "No Image"
 msgstr "No Image"
 
+msgid "Percent Check MinValue"
+msgstr "Percent Min Value>=0"
+
+msgid "Percent Check MaxValue"
+msgstr "Percent Max Value <=100"
+
 msgid "Dict Type"
 msgstr "Dict Type"
 
@@ -175,6 +190,15 @@ msgstr "Delete Successful"
 
 msgid "Dict Type Duplication Dict Type"
 msgstr "Category code duplication"
+
+msgid "Dict Type Not Find By Code"
+msgstr "Cannot get dict type by code"
+
+msgid "Dict Type Code Be Used"
+msgstr "The Code is be used"
+
+msgid "Dict Type Be Deleted"
+msgstr "The dict type has be deleted"
 
 msgid "Dict Data"
 msgstr "Dict Data"
@@ -212,6 +236,9 @@ msgstr "Mobile Access"
 msgid "Work Order"
 msgstr "Work Order"
 
+msgid "Work Order Deleted"
+msgstr "Work Order has deleted"
+
 msgid "Work Order Cate"
 msgstr "Cate"
 
@@ -232,6 +259,15 @@ msgstr "Percent"
 
 msgid "Work Order Staff"
 msgstr "Work Order Staff"
+
+msgid "Work Order Staff Work Id Required"
+msgstr "Require Work Id"
+
+msgid "Work Order Staff Staff Id Required"
+msgstr "Require Executor Staff Id"
+
+msgid "Work Order Staff Repeated"
+msgstr "Do not add staff to work order"
 
 msgid "Invalid request parameters"
 msgstr "Invalid request parameters"

@@ -1,4 +1,4 @@
-from rest_framework.exceptions import APIException
+from rest_framework.exceptions import APIException, ValidationError
 
 from core.rest_util import JsonMsg
 from django.utils.translation import gettext_lazy as _
@@ -23,6 +23,7 @@ class CustomAPIException(APIException):
 
 # 自定义异常处理器
 def custom_exception_handler(exc, context):
+    print(f'exc:{exc}')
     # 延迟导入，避免循环依赖
     from rest_framework.views import exception_handler
     from rest_framework.response import Response
@@ -37,7 +38,12 @@ def custom_exception_handler(exc, context):
             jsonMsg = JsonMsg(msgType=False, msg=customAPIException.detail, code=response.status_code)
             response.data = jsonMsg.to_dict()
         else:
-            jsonMsg = JsonMsg(msgType=False, msg=_('Exception Unknown'), code=response.status_code)
+            if isinstance(exc, ValidationError):
+                validationError: ValidationError = exc
+                jsonMsg = JsonMsg(msgType=False, msg=str(validationError.detail),
+                                  code=response.status_code)
+            else:
+                jsonMsg = JsonMsg(msgType=False, msg=_('Exception Unknown'), code=response.status_code)
             response.data = jsonMsg.to_dict()
         return response
 

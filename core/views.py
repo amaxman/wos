@@ -14,7 +14,7 @@ class BasicListView(ListAPIView):
 
 class ListCreateAPIView(generics.ListCreateAPIView):
     def create(self, request, *args, **kwargs):
-        data = request.data  # 复制数据，因为 request.data 是不可变的
+        data = request.data
 
         # 使用修改后的数据创建序列化器
         serializer = self.get_serializer(data=data)

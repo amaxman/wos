@@ -87,6 +87,12 @@ http://localhost:8080/rest/workOrder/workOrder/list/?format=json&language=zh&ses
     其中指定了开始时间范围，更多查询参数请参看文档work_order/views.py中WorkOrderViewSet部分
 <img src="images/rest_work_order.png" />
 
+#### 增加工单
+```bash
+http://localhost:8080/rest/workOrder/workOrder/?language=en&sessionId=y8tbvccv0w5n2bf8ogr2jutjab97qsps
+```
+<img src="images/rest_work_order_create.png" />
+
 #### 获取、更新、删除
 ```bash
 http://localhost:8080/rest/workOrder/workOrder/3/?language=zh&sessionId=y8tbvccv0w5n2bf8ogr2jutjab97qsps

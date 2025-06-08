@@ -64,7 +64,7 @@ class WorkOrderStaff(BasicModel):
         parent_link=True,
         limit_choices_to={'start_date__gte': timezone.now() - timedelta(days=3)}
     )
-    staff_id = models.ForeignKey(to=User, verbose_name=_('Work Order Executor'), on_delete=models.SET_NULL, null=True,
+    staff = models.ForeignKey(to=User, verbose_name=_('Work Order Executor'), on_delete=models.SET_NULL, null=True,
                                  related_name='work_order_staff_staff_id', blank=True)
     work_order_percent = models.DecimalField(verbose_name=_('Work Order Staff Percent'), max_digits=5, decimal_places=2, default='0')
     create_by = models.ForeignKey(to=User, verbose_name=_('Work Order Staff Percent'), on_delete=models.SET_NULL,
