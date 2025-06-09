@@ -103,9 +103,47 @@ class MobileAccessAdmin(admin.ModelAdmin):
                 obj.access_icon
             )
         return _('No Image')
+
     image_preview.short_description = _('Preview')
 
     class Media:
         css = {
             'all': ('css/custom.css',)
         }
+
+
+class MobileAccessUserAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (_('Dict Type'), {
+            'fields': [
+                'mobile_access',
+                'user',
+            ],
+        }),
+        (_('Detail'), {
+            'fields': [
+                'create_by',
+                'create_time',
+            ],
+        }),
+    ]
+    list_display = [
+        'mobile_access',
+        'get_user_first_name',
+        'get_create_by',
+        'create_time',
+    ]
+
+    def get_user_first_name(self, obj):
+        """获取用户的名字"""
+        return obj.user.first_name + ' ' + obj.user.last_name if obj.user else "-"
+
+    get_user_first_name.short_description = _('Full Name')  # 设置列标题
+    get_user_first_name.admin_order_field = 'user__first_name'  # 设置排序依据
+
+    def get_create_by(self, obj):
+        """获取创建者信息（需要根据实际逻辑实现）"""
+        # 示例：假设通过历史记录或其他方式追踪创建者
+        return obj.create_by.first_name + ' ' + obj.create_by.last_name if obj.create_by else "-"
+
+    get_create_by.short_description = _('Create By')

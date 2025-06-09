@@ -37,6 +37,13 @@ http://localhost:8080/rest/auth/login?username=admin&password=admin&language=en
 
 <img src="./images/rest_login.png" width="400" />
 
+### 获取登陆授权
+```bash
+http://localhost:8080/rest/system/mobileAccess/permission/?language=zh&sessionId=y8tbvccv0w5n2bf8ogr2jutjab97qsps
+```
+
+<img src="./images/rest_mobile_access_user.png" />
+
 ### 数据字典
 #### 类型列表
 ```bash

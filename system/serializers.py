@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import DictType, DictData
+from .models import DictType, DictData, MobileAccess, MobileAccessUser
 
 from django.utils.translation import gettext_lazy as _
 
@@ -25,3 +25,21 @@ class DictDataSerializer(serializers.ModelSerializer):
         model = DictData
         fields = ['id', 'dict_label', 'dict_value', 'dict_order_num', 'dict_type_id', 'dict_type']
         # fields = '__all__'
+
+
+# region 移动端
+
+class MobileAccessSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MobileAccess
+        fields = ['access_title', 'access_code', 'access_order_num', 'access_icon']  # 只包含需要的字段
+
+
+class MobileAccessUserSerializer(serializers.ModelSerializer):
+    # 嵌套序列化关联对象
+    mobile_access = MobileAccessSerializer(read_only=True)
+
+    class Meta:
+        model = MobileAccessUser
+        fields = ['id', 'mobile_access']
+# endregion

@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import DictTypeListView, DictDataListView, DictTypeRetrieveUpdateDestroyView, \
-    DictDataRetrieveUpdateDestroyView, DictTypeListCreateView,DictDataListCreateView
+    DictDataRetrieveUpdateDestroyView, DictTypeListCreateView, DictDataListCreateView, MobileAccessUserListView
 
 # 创建路由器并注册我们的视图集
 # router = routers.DefaultRouter()
@@ -18,4 +18,5 @@ urlpatterns = [
     # Dict Data Create，如果不需要，可删除
     path('dictData/', DictDataListCreateView.as_view(), name='dict-data-create'),
     path('dictData/<int:pk>/', DictDataRetrieveUpdateDestroyView.as_view(), name='dict-data-retrieve-update-destroy'),
+    path('mobileAccess/permission/', MobileAccessUserListView.as_view(), name='mobile_access_user_permission'),
 ]

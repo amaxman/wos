@@ -1,9 +1,9 @@
 from rest_framework import filters
 
 from core.views import BasicListView, BasicRetrieveUpdateDestroyAPIView
-from .models import DictType, DictData
+from .models import DictType, DictData, MobileAccess, MobileAccessUser
 
-from .serializers import DictTypeSerializer, DictDataSerializer
+from .serializers import DictTypeSerializer, DictDataSerializer, MobileAccessSerializer, MobileAccessUserSerializer
 from rest_framework.response import Response
 from rest_framework import generics, status
 from django.utils.translation import gettext_lazy as _
@@ -178,4 +178,28 @@ class DictDataRetrieveUpdateDestroyView(BasicRetrieveUpdateDestroyAPIView):
             'data': serializer.data.get('id'),
         }, status=status.HTTP_200_OK)
 
+
+# endregion
+
+# region 移动眼
+class MobileAccessUserListView(BasicListView):
+    queryset = MobileAccessUser.objects.select_related('mobile_access', 'user').all()
+    serializer_class = MobileAccessUserSerializer
+    pagination_class = None
+
+    def list(self, request, *args, **kwargs):
+        # region 获取用户信息
+        # 获取当前用户
+        user = request.user
+        userId = user.id
+        # endregion
+        queryset = self.filter_queryset(self.get_queryset())
+        queryset = queryset.filter(user_id=userId)
+        serializer = self.get_serializer(queryset, many=True)
+
+        return Response({
+            'msgType': True,
+            'msg': _('auth permission get'),
+            'data': serializer.data,
+        }, status=status.HTTP_200_OK)
 # endregion

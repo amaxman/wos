@@ -176,6 +176,9 @@ msgstr "百分比不能小于0"
 msgid "Percent Check MaxValue"
 msgstr "百分比不能小于0"
 
+msgid "Full Name"
+msgstr "姓名"
+
 msgid "Dict Type"
 msgstr "数据字典类型"
 
@@ -233,6 +236,18 @@ msgstr "图片"
 msgid "Mobile Access"
 msgstr "移动端入口"
 
+msgid "Mobile Access User"
+msgstr "移动端用户"
+
+msgid "Mobile Access User User_Id required"
+msgstr "请选择用户"
+
+msgid "Mobile Access User Access_Id required"
+msgstr "请选择移动端入口"
+
+msgid "Mobile Access User Save Repeated"
+msgstr "请勿重复添加"
+
 msgid "Work Order"
 msgstr "工单"
 
@@ -281,8 +296,11 @@ msgstr "用户账户已被禁用"
 msgid "Login successful"
 msgstr "登陆成功"
 
+msgid "auth permission get"
+msgstr "获取移动端入口权限成功"
+
 msgid "Authentication credentials were not provided"
-msgstr "为提供登陆令牌"
+msgstr "未提供登陆令牌"
 
 msgid "Invalid Media Type"
 msgstr "非法的媒体类型，应为application/json"

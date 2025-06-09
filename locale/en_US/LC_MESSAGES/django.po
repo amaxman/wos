@@ -176,6 +176,9 @@ msgstr "Percent Min Value>=0"
 msgid "Percent Check MaxValue"
 msgstr "Percent Max Value <=100"
 
+msgid "Full Name"
+msgstr "Full Name"
+
 msgid "Dict Type"
 msgstr "Dict Type"
 
@@ -233,6 +236,18 @@ msgstr "Image"
 msgid "Mobile Access"
 msgstr "Mobile Access"
 
+msgid "Mobile Access User"
+msgstr "Mobile Access User"
+
+msgid "Mobile Access User User_Id required"
+msgstr "Select User,Pls"
+
+msgid "Mobile Access User Access_Id required"
+msgstr "Select Access,Pls"
+
+msgid "Mobile Access User Save Repeated"
+msgstr "Disallow To Save Repeated"
+
 msgid "Work Order"
 msgstr "Work Order"
 
@@ -280,6 +295,9 @@ msgstr "User account is disabled"
 
 msgid "Login successful"
 msgstr "Login successful"
+
+msgid "auth permission get"
+msgstr "Get Access Successfully"
 
 msgid "Authentication credentials were not provided"
 msgstr "Authentication credentials were not provided"

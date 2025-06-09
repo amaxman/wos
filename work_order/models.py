@@ -67,7 +67,7 @@ class WorkOrderStaff(BasicModel):
     staff = models.ForeignKey(to=User, verbose_name=_('Work Order Executor'), on_delete=models.SET_NULL, null=True,
                                  related_name='work_order_staff_staff_id', blank=True)
     work_order_percent = models.DecimalField(verbose_name=_('Work Order Staff Percent'), max_digits=5, decimal_places=2, default='0')
-    create_by = models.ForeignKey(to=User, verbose_name=_('Work Order Staff Percent'), on_delete=models.SET_NULL,
+    create_by = models.ForeignKey(to=User, verbose_name=_('Create By'), on_delete=models.SET_NULL,
                                   null=True,
                                   related_name='created_work_order_staff', blank=True)
     create_time = models.DateTimeField(_('Create Time'), default=timezone.now)
