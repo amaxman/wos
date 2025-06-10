@@ -296,6 +296,12 @@ msgstr "User account is disabled"
 msgid "Login successful"
 msgstr "Login successful"
 
+msgid "Login token is null"
+msgstr "Token is null"
+
+msgid "Login token illegal"
+msgstr "Illegal token"
+
 msgid "auth permission get"
 msgstr "Get Access Successfully"
 

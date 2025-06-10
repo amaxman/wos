@@ -181,7 +181,7 @@ class DictDataRetrieveUpdateDestroyView(BasicRetrieveUpdateDestroyAPIView):
 
 # endregion
 
-# region 移动眼
+# region 移动用户
 class MobileAccessUserListView(BasicListView):
     queryset = MobileAccessUser.objects.select_related('mobile_access', 'user').all()
     serializer_class = MobileAccessUserSerializer

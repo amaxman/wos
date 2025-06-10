@@ -296,6 +296,12 @@ msgstr "用户账户已被禁用"
 msgid "Login successful"
 msgstr "登陆成功"
 
+msgid "Login token is null"
+msgstr "登陆令牌不允许为空"
+
+msgid "Login token illegal"
+msgstr "非法的登陆令牌"
+
 msgid "auth permission get"
 msgstr "获取移动端入口权限成功"
 
