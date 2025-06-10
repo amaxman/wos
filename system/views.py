@@ -187,7 +187,13 @@ class MobileAccessUserListView(BasicListView):
     serializer_class = MobileAccessUserSerializer
     pagination_class = None
 
+    def post(self, request, *args, **kwargs):
+        return self.page_data(request, *args, **kwargs)
+
     def list(self, request, *args, **kwargs):
+        return self.page_data(request, *args, **kwargs)
+
+    def page_data(self, request, *args, **kwargs):
         # region 获取用户信息
         # 获取当前用户
         user = request.user
