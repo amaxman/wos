@@ -50,18 +50,6 @@ class WorkOrderListView(BasicListView):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-    def update(self, request, *args, **kwargs):
-        # 自动设置更新人
-        partial = kwargs.pop('partial', False)
-        instance = self.get_object()
-        data = request.data.copy()
-        if request.user.is_authenticated and 'update_by' not in data:
-            data['update_by'] = request.user.id
-        serializer = self.get_serializer(instance, data=data, partial=partial)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
-        return Response(serializer.data)
-
     def post(self, request, *args, **kwargs):
         """
         处理POST请求，返回过滤后的列表数据
@@ -92,8 +80,7 @@ class WorkOrderListCreateView(ListCreateAPIView):
     def create(self, request, *args, **kwargs):
         data = request.data.copy()  # 复制数据，因为 request.data 是不可变的
 
-        # region 获取用户信息
-        # 获取当前用户
+        # region 获取当前用户
         user = request.user
         data['create_by'] = user.id
         data['create_time'] = timezone.now()
@@ -102,17 +89,18 @@ class WorkOrderListCreateView(ListCreateAPIView):
         # endregion
 
         # region 开始日期
-        start_date = data['start_date']
-        end_date = data['end_date']
-        if start_date is None:
+        start_time = data['start_time']
+        end_time = data['end_time']
+        if start_time is None:
             return Response({
                 'msgType': False,
-                'msg': _('Start Date Required'),
+                'msg': _('Start Time Required'),
             }, status=status.HTTP_201_CREATED)
         # endregion
+
         # region 开始时间与结束时间比较
-        if end_date is not None:
-            if start_date > end_date:
+        if end_time is not None:
+            if start_time > end_time:
                 return Response({
                     'msgType': False,
                     'msg': _('Check Date Area'),
@@ -133,6 +121,18 @@ class WorkOrderListCreateView(ListCreateAPIView):
             'msg': _('Save Successfully'),
             'data': serializer.data.get('id'),
         }, status=status.HTTP_201_CREATED, headers=headers)
+
+    def update(self, request, *args, **kwargs):
+        # 自动设置更新人
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        data = request.data.copy()
+        if request.user.is_authenticated and 'update_by' not in data:
+            data['update_by'] = request.user.id
+        serializer = self.get_serializer(instance, data=data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
 
 
 class WorkOrderRetrieveUpdateDestroyView(BasicRetrieveUpdateDestroyAPIView):

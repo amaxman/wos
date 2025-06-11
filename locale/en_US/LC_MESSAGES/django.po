@@ -149,6 +149,12 @@ msgstr "Require Start Date"
 msgid "End Date Required"
 msgstr "Require End Date"
 
+msgid "Start Time Required"
+msgstr "Require Time Date"
+
+msgid "End Time Required"
+msgstr "Require End Time"
+
 msgid "Check Date Area"
 msgstr "Start Date before End Date"
 

@@ -149,6 +149,12 @@ msgstr "开始日期不允许为空"
 msgid "End Date Required"
 msgstr "结束日期不允许为空"
 
+msgid "Start Time Required"
+msgstr "开始时间不允许为空"
+
+msgid "End Time Required"
+msgstr "结束时间不允许为空"
+
 msgid "Check Date Area"
 msgstr "开始日期必须不晚于结束日期"
 

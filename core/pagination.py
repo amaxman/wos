@@ -13,6 +13,24 @@ class CustomLimitOffsetPagination(LimitOffsetPagination):
     limit_query_param = 'limit'  # 查询参数名：limit
     offset_query_param = 'offset'  # 查询参数名：offset
 
+    def get_limit(self, request):
+        """优先从 POST 数据获取 limit 参数"""
+        if request.method == 'POST' and 'limit' in request.data:
+            try:
+                return int(request.data['limit'])
+            except (ValueError, TypeError):
+                pass
+        return super().get_limit(request)
+
+    def get_offset(self, request):
+        """优先从 POST 数据获取 offset 参数"""
+        if request.method == 'POST' and 'offset' in request.data:
+            try:
+                return int(request.data['offset'])
+            except (ValueError, TypeError):
+                pass
+        return super().get_offset(request)
+
     def get_paginated_response(self, data):
         response_data = {
             'next': self.get_next_link(),
