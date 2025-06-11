@@ -26,7 +26,7 @@ class WorkOrderSerializer(ModelsSerializer):
 
     class Meta:
         model = WorkOrder
-        fields = ['id', 'title', 'content', 'start_date', 'end_date', 'cate', 'level',
+        fields = ['id', 'title', 'content', 'start_time', 'end_time', 'cate', 'level',
                   'create_by', 'create_time', 'update_by',
                   'update_time']
 

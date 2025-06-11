@@ -89,7 +89,7 @@ http://localhost:8080/rest/system/dictData/1/?language=zh&sessionId=y8tbvccv0w5n
 ### 工单
 #### 列表
 ```bash
-http://localhost:8080/rest/workOrder/workOrder/list/?format=json&language=zh&sessionId=y8tbvccv0w5n2bf8ogr2jutjab97qsps&start_date__gte=2025-06-01&start_date__lte=2025-06-09&limit=1&offset=0
+http://localhost:8080/rest/workOrder/workOrder/list/?format=json&language=zh&sessionId=y8tbvccv0w5n2bf8ogr2jutjab97qsps&start_time__gte=2025-06-01&start_time__lte=2025-12-09&limit=10&offset=0
 ``` 
     其中指定了开始时间范围，更多查询参数请参看文档work_order/views.py中WorkOrderViewSet部分
 <img src="images/rest_work_order.png" />

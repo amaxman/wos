@@ -1,13 +1,13 @@
 from django.contrib.auth.models import User
 from django.utils import timezone
 
-from core.views import BasicListView, BasicRetrieveUpdateDestroyAPIView, ListCreateAPIView
+from core.views import BasicListView, BasicRetrieveUpdateDestroyAPIView, ListCreateAPIView, PostDataFilterBackend
 from .models import WorkOrder, WorkOrderStaff
 from .serializers import WorkOrderSerializer, WorkOrderStaffSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
-from rest_framework import generics, status
+from rest_framework import status
 from django.utils.translation import gettext_lazy as _
 
 
@@ -17,22 +17,25 @@ class WorkOrderListView(BasicListView):
    工单管理视图集
 
    支持的查询参数:
-   - start_date: 按开始日期筛选 (格式: YYYY-MM-DD)
-   - start_date__gte: 开始日期大于等于指定日期
-   - start_date__lte: 开始日期小于等于指定日期
+   - start_time: 按开始日期筛选 (格式: YYYY-MM-DD)
+   - start_time__gte: 开始日期大于等于指定日期
+   - start_time__lte: 开始日期小于等于指定日期
    - search: 搜索工单标题和内容
-   - ordering: 排序字段 (例如: ordering=start_date 或 ordering=-start_date)
+   - ordering: 排序字段 (例如: ordering=start_time 或 ordering=-start_time)
    """
     queryset = WorkOrder.objects.all()
     serializer_class = WorkOrderSerializer
 
-    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    # filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filter_backends = [PostDataFilterBackend, DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = {
-        'start_date': ['exact', 'gte', 'lte'],
+        'start_time': ['exact', 'gte', 'lte'],
+        'title': ['icontains'],
+        'content': ['icontains'],
     }
     search_fields = ['title', 'content']
-    ordering_fields = ['start_date', 'end_date', 'create_time']
-    ordering = ['-start_date']  # 默认按开始日期降序排列
+    ordering_fields = ['-start_time', '-end_time', 'create_time']
+    ordering = ['-start_time']  # 默认按开始日期降序排列
 
     def create(self, request, *args, **kwargs):
         # 自动设置创建人和更新人
@@ -59,8 +62,17 @@ class WorkOrderListView(BasicListView):
         self.perform_update(serializer)
         return Response(serializer.data)
 
+    def post(self, request, *args, **kwargs):
+        """
+        处理POST请求，返回过滤后的列表数据
+        """
+        return self.list(request, *args, **kwargs)
+
     def list(self, request, *args, **kwargs):
+        # 应用过滤和排序
         queryset = self.filter_queryset(self.get_queryset())
+
+        # 应用过滤
 
         # 手动处理分页
         page = self.paginate_queryset(queryset)

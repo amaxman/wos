@@ -17,8 +17,8 @@ class WorkOrderAdmin(BasicModelAdmin):
         }),
         (_('Time'), {
             'fields': [
-                'start_date',
-                'end_date',
+                'start_time',
+                'end_time',
             ],
         }),
         (_('User Info'), {
@@ -34,8 +34,8 @@ class WorkOrderAdmin(BasicModelAdmin):
     list_display = [
         'title',
         'content',
-        'start_date',
-        'end_date',
+        'start_time',
+        'end_time',
         'cate',
         'level',
     ]

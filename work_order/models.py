@@ -23,8 +23,8 @@ def get_dict_level():
 class WorkOrder(BasicModel):
     title = models.CharField(verbose_name=_('Work Order Title'), max_length=100)
     content = models.TextField(verbose_name=_('Work Order Content'))
-    start_date = models.DateField(verbose_name=_('Start Date'), default=timezone.now)
-    end_date = models.DateField(verbose_name=_('End Date'), null=True, blank=True)
+    start_time = models.DateTimeField(verbose_name=_('Start Time'), default=timezone.now)
+    end_time = models.DateTimeField(verbose_name=_('End Time'), null=True, blank=True)
 
     cate = models.ForeignKey(
         to=DictData,
@@ -52,7 +52,7 @@ class WorkOrder(BasicModel):
         verbose_name = _('Work Order')
         verbose_name_plural = _('Work Order')
         db_table = 'tb_work_order'
-        ordering = ['-start_date']
+        ordering = ['-start_time']
 
 
 class WorkOrderStaff(BasicModel):
@@ -62,7 +62,7 @@ class WorkOrderStaff(BasicModel):
         verbose_name=_('Work Order'),
         related_name='items',
         parent_link=True,
-        limit_choices_to={'start_date__gte': timezone.now() - timedelta(days=3)}
+        limit_choices_to={'start_time__gte': timezone.now() - timedelta(days=3)}
     )
     staff = models.ForeignKey(to=User, verbose_name=_('Work Order Executor'), on_delete=models.SET_NULL, null=True,
                                  related_name='work_order_staff_staff_id', blank=True)

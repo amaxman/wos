@@ -107,6 +107,12 @@ msgstr "Start Date"
 msgid "End Date"
 msgstr "End Date"
 
+msgid "Start Time"
+msgstr "Start Time"
+
+msgid "End Time"
+msgstr "End Time"
+
 msgid "Create By"
 msgstr "Create By"
 

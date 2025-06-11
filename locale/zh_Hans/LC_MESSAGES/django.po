@@ -107,6 +107,12 @@ msgstr "开始日期"
 msgid "End Date"
 msgstr "结束日期"
 
+msgid "Start Time"
+msgstr "开始时间"
+
+msgid "End Time"
+msgstr "结束时间"
+
 msgid "Create By"
 msgstr "创建人"
 
