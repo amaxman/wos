@@ -1,0 +1,8 @@
+# 部分内容涉及Dock部署，本处请自行处理
+Django>=5.1.6
+gunicorn>=23.0.0
+psycopg2-binary>=2.9.10
+python-decouple>=3.8
+dj-database-url>=3.0.0
+djangorestframework>=25.1
+django-filter>=3.15.2
